@@ -37,7 +37,10 @@ Eine verfeinerte Version, in der die einzelnen Hauptphasen noch untergliedert si
 
 \chapter{Analysephase}
 \section{Ist-Analyse}
-Wie in Sektion \ref{Projektabgrenzung} (Projektabgrenzung) schon angedeutet ist der Hauptcontroller, sowie alle Animationscontroller und Hilfsklassen wie unter anderem die Kamerabewegung, ein Arduino\fcitetitle{Arduino} Kommunikationsscript bereits in das Projekt eingebunden. 
+In dem Spiel gibt es viele kleine Details, welche über das Einbinden von Scripten und das Platzieren von 3D-Modellen realisiert werden. Dazu gehört zunächst die Spielkarte auf der sich der Charakter bewegt. Diese wurde von anderen Teammitgliedern erstellt, mit 3D-Modellen wie z.B. Bäumen, Sträuchern oder Gesteinsbrocken bestückt und in das Projekt implementiert. Zusätzlich wurden 3D-Modelle von Wolken und Vögeln erstellt, die sich im Kreis um den Hauptberg bewegen\footnote{Die Bewegung wurde mit einem Script realisiert.}.
+Der Spielecharakter namens \q{Sisyfox} gehört zu den schon erstellten 3D-Modellen und wurde ebenfalls schon mit einer vollständiger Animation versehen.
+Wie in Sektion \ref{Projektabgrenzung} (Projektabgrenzung) schon angedeutet ist der Hauptcontroller, als einer von vielen Scripten, schon vorhanden. Weitere wichtige Scripte sind die Kamerasteuerung, sämtliche Animationsscripte, eine Höhenmeteranzeige und ein Arduinokommunikationsscript, welcher eine Verbindung zu einer Hardwarekonstruktion namens \q{Arduino\fcitetitle{Arduino}} aufbaut. Letzter sorgt dafür, dass sich relativ zur Höhe auf der sich der Charakter befindet, ein angeschlossener Ventilator stärker dreht und eine Nebelmaschine kurz vor Erreichen des Gipfels anspringt.
+Um das Spiel zu komplettieren fehlt nun die Charaktersteuerung. 
 
 \section{Anwendungsfälle}
 
