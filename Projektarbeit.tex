@@ -7,6 +7,8 @@
 \usepackage[utf8]{inputenc} % Unicode support (Umlauts etc.)
 \usepackage{float}
 \usepackage[ngerman]{babel} % Change hyphenation rules
+\usepackage[autostyle=true, german=quotes]{csquotes}
+\newcommand{\q}[1]{\enquote{#1}}
 \usepackage{graphicx} % Add pictures to your document
 \usepackage{listings} % Source code formatting and highlighting
 
@@ -91,10 +93,11 @@ linkcolor=ckcGreenDark, citecolor=ckcGreenDark, urlcolor=ckcGreenDark
 
 \input{Inhalt}
 
-\appendix
-
-\input{Anhang}
-
 \printbibliography[heading=bibintoc,title={Literaturverzeichnis}]
+\newpage{}
+
+\appendix
+\pagenumbering{roman}
+\input{Anhang}
 
 \end{document}
