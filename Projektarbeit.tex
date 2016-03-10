@@ -1,0 +1,100 @@
+% Preamble
+% ---
+\documentclass[11pt, listof=totoc]{scrreprt}
+
+% Packages
+% ---
+\usepackage[utf8]{inputenc} % Unicode support (Umlauts etc.)
+\usepackage{float}
+\usepackage[ngerman]{babel} % Change hyphenation rules
+\usepackage{graphicx} % Add pictures to your document
+\usepackage{listings} % Source code formatting and highlighting
+
+%Layout
+\usepackage[left=2.5cm, right=2.5cm, top=2cm, headsep=0cm]{geometry}
+\usepackage[onehalfspacing]{setspace} %singelspacing
+
+% Schusterjungen und Hurenkinder vermeiden
+\clubpenalty = 10000
+\widowpenalty = 10000
+\displaywidowpenalty = 10000
+
+%KOPF UND FUßZEILE%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{scrlayer-scrpage}
+\pagestyle{scrheadings}
+\renewcommand*\chapterpagestyle{scrheadings}
+\clearscrheadfoot
+
+%Kopfzeile
+\ihead{\setstretch{1}{\begin{large}\textsc{Charaktersteuerung}\\\end{large}
+\begin{small}
+Programmierung einer intuitiven Charaktersteuerung\\
+\end{small}
+\vspace{7pt}
+\leftmark}}
+\automark{chapter}
+\ohead{\includegraphics[scale=0.25]{Bilder/ckc_logo.png}}
+\setheadsepline{1pt}
+
+%Fußzeile
+\ifoot{Marvin Jung}
+\ofoot{
+\begin{large}
+\thepage
+\end{large}}
+
+%Abstand über und unter Kapitel
+\setlength{\headsep}{16pt}
+\RedeclareSectionCommand[beforeskip=0pt, afterskip=8pt]{chapter}
+
+
+%Quellenverzeichnis
+\usepackage[backend=bibtex]{biblatex}
+\bibliography{Quellen}
+\newcommand{\fcitetitle}[1]{\footnote{\citetitle{#1} [\citefield{#1}{year}] \cite{#1}}}
+
+% Tabellensettings:
+\usepackage{xcolor}
+\usepackage{tabularx}
+\usepackage{colortbl}
+\definecolor{ckcGreenDark}{rgb}{0.457,0.523,0.117}
+\definecolor{ckcGreen}{rgb}{0.664,0.781,0.156}
+\definecolor{odd}{rgb}{0.9,0.9,0.9}
+\usepackage{chngcntr}
+\counterwithout{table}{section}
+\newcommand{\tref}[1]{[\ref{#1}]}
+
+
+\usepackage[nottoc]{tocbibind}
+\usepackage[linktocpage=true, colorlinks=true, 
+linkcolor=ckcGreenDark, citecolor=ckcGreenDark, urlcolor=ckcGreenDark
+%linkcolor=black, citecolor=black, urlcolor=black
+]{hyperref}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%DOKUMENTSTART
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+\pagenumbering{gobble} %schaltet die Seitenzahl aus (gobble-keine Zahlen; arabic-zahlen; roman-roman zahlen)
+
+\input{Deckblatt}
+
+\pagenumbering{Roman}
+\tableofcontents{} %generiert das Inhaltsverzeichnis
+\addtocontents{toc}{~\hfill\textbf{Seite}\par}
+\newpage{}
+\listoffigures
+\listoftables
+\newpage{}
+\pagenumbering{arabic} %schaltet die Seitenzahl ein
+
+\input{Inhalt}
+
+\appendix
+
+\input{Anhang}
+
+\printbibliography[heading=bibintoc,title={Literaturverzeichnis}]
+
+\end{document}
