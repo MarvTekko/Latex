@@ -41,15 +41,18 @@ In dem Spiel gibt es viele kleine Details, welche über das Einbinden von Script
 Der Spielecharakter namens \q{Sisyfox} gehört zu den schon erstellten 3D-Modellen und wurde ebenfalls schon mit einer vollständiger Animation versehen.
 Wie in Sektion \ref{Projektabgrenzung} (Projektabgrenzung) schon angedeutet ist der Hauptcontroller, als einer von vielen Scripten, schon vorhanden. Weitere wichtige Scripte sind die Kamerasteuerung, sämtliche Animationsscripte, eine Höhenmeteranzeige und ein Arduinokommunikationsscript, welcher eine Verbindung zu einer Hardwarekonstruktion namens \q{Arduino\fcitetitle{Arduino}} aufbaut. Letzter sorgt dafür, dass sich relativ zur Höhe auf der sich der Charakter befindet, ein angeschlossener Ventilator stärker dreht und eine Nebelmaschine kurz vor Erreichen des Gipfels anspringt.
 Um das Spiel zu komplettieren fehlt nun die Charaktersteuerung. 
-
 \section{Anwendungsfälle}
+
 
 \chapter{Entwurfsphase}
 \section{Zielplattform}
-Zur Auswahl standen die IDEs\footnote{eng: integrated development environment, de: Integrierte Entwicklungsumgebung} 
-Gewählt wurde die Unity Engine für das Projekt, da dort mit Hilfe von C\# oder Javascript Scripten sehr leicht Funktionen umgesetzt werden können. 
+Zur Auswahl standen die IDEs\footnote{eng: integrated development environment, de: Integrierte Entwicklungsumgebung} \q{Unity 3D Engine} und \q{Unreal Engine 4}. Gewählt wurde die Unity Engine, da es in der Unreal Engine mangels grundlegender Vorkenntnisse zu einer deutlich längeren Entwicklungszeit kommen würde. Es müsste zunächst ein großer Teil der Zeit für Einarbeitung aufgewandt werden. 
+Ein weiterer Grund ist das sehr einfache und intuitive Einbinden von Gameobjekt\footnote{Gameobjekte sind die Grundbausteine von jedem Unity Spiel.} Scripten.
 
 \section{Architekturdesign}
+MVC , PAC abwägen
+Für den Architekturaufbau standen das MVC\footnote{Model-View-Controller}- und PAC\footnote{Presentation-Abstraction-Control}-Muster zur Auswahl.
+
 \section{Entwurf der Benutzeroberfläche}
 
 \section{Geschäftslogik}
