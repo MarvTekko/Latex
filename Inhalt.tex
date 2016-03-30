@@ -37,6 +37,7 @@ Eine verfeinerte Version, in der die einzelnen Hauptphasen noch untergliedert si
 
 \chapter{Analysephase}
 \section{Ist-Analyse}
+\paragraph{}
 In dem Spiel gibt es viele kleine Details, welche über das Einbinden von Scripten und das Platzieren von 3D-Modellen realisiert werden. Dazu gehört zunächst die Spielkarte auf der sich der Charakter bewegt. Diese wurde von anderen Teammitgliedern erstellt, mit 3D-Modellen wie z.B. Bäumen, Sträuchern oder Gesteinsbrocken bestückt und in das Projekt implementiert. Zusätzlich wurden 3D-Modelle von Wolken und Vögeln erstellt, die sich im Kreis um den Hauptberg bewegen\footnote{Die Bewegung wurde mit einem Script realisiert.}.
 Der Spielecharakter namens \q{Sisyfox} gehört zu den schon erstellten 3D-Modellen und wurde ebenfalls schon mit einer vollständiger Animation versehen.
 Wie in Sektion \ref{Projektabgrenzung} (Projektabgrenzung) schon angedeutet ist der Hauptcontroller, als einer von vielen Scripten, schon vorhanden. Weitere wichtige Scripte sind die Kamerasteuerung, sämtliche Animationsscripte, eine Höhenmeteranzeige und ein Arduinokommunikationsscript, welcher eine Verbindung zu einer Hardwarekonstruktion namens \q{Arduino\fcitetitle{Arduino}} aufbaut. Letzter sorgt dafür, dass sich relativ zur Höhe auf der sich der Charakter befindet, ein angeschlossener Ventilator stärker dreht und eine Nebelmaschine kurz vor Erreichen des Gipfels anspringt.
@@ -46,12 +47,21 @@ Um das Spiel zu komplettieren fehlt nun die Charaktersteuerung.
 
 \chapter{Entwurfsphase}
 \section{Zielplattform}
+\paragraph{}
 Zur Auswahl standen die IDEs\footnote{eng: integrated development environment, de: Integrierte Entwicklungsumgebung} \q{Unity 3D Engine} und \q{Unreal Engine 4}. Gewählt wurde die Unity Engine, da es in der Unreal Engine mangels grundlegender Vorkenntnisse zu einer deutlich längeren Entwicklungszeit kommen würde. Es müsste zunächst ein großer Teil der Zeit für Einarbeitung aufgewandt werden. 
-Ein weiterer Grund ist das sehr einfache und intuitive Einbinden von Gameobjekt\footnote{Gameobjekte sind die Grundbausteine von jedem Unity Spiel.} Scripten.
+Ein weiterer Grund ist das sehr einfache und intuitive Einbinden von Gameobjekt\footnote{Gameobjekte sind die Grundbausteine von jedem Unity Spiel.}-Scripten.
 
 \section{Architekturdesign}
-Für den Architekturaufbau standen das Model-View-Controller- (MVC) und das Presentation-Abstraction-Control-Muster (PAC) zur Auswahl.
-Des MVC Muster besteht grundsätzlich aus drei Ebenen, dem  
+\paragraph{}
+Für den Architekturaufbau standen das \q{Model-View-Controller-} (MVC) und das \q{Presentation-Abstraction-Control-Muster} (PAC) zur Auswahl.
+\paragraph{}
+Des MVC Muster (Siehe Schema Abbildung \ref{Abb:MVC}) besteht grundsätzlich aus drei Strukturen, die unterschiedliche Ebenen im Programmaufbau darstellen.
+Diese unterteilen sich in \q{Modell-}, \q{View-} und \q{Controller-Ebene}. Die Unterteilung dient hierbei dem Zweck, dass jede Ebene flexibel und unabhängig der Anderen verändert, ersetzt oder erweitert werden kann. 
+Das Modell beinhaltet die Daten, die für die Anzeige nötig sind. Über die View-Ebene werden die Daten aus dem Modell dem Benutzer angezeigt und des Weiteren mögliche Benutzereingaben entgegengenommen. Wenn sich Daten im Modell ändern wird im Regelfall die View-Ebene mithilfe eines Beobachters\footnote{Der Beobachter meldet sich bei der View-Ebene, sobald sich Daten im Modell ändern.} benachrichtigt, sodass sich die View aktualisieren kann. Die entgegengenommen Benutzereingaben werden von dem Controller übernommen und verarbeitet. In dem objektorientierten Ansatz führt der Controller Methoden im Modell aus, damit die Aktionen des Benutzers wirksam werden. Außerdem kann der Controller die View direkt manipulieren, um z.B. die angezeigten Eingabemöglichkeiten zu verändern. 
+\paragraph{}
+ 
+
+
 
 \section{Entwurf der Benutzeroberfläche}
 
