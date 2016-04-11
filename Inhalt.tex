@@ -23,7 +23,7 @@ Mit dem Projekt möchte ich eine gewisse Hartnäckigkeit, gefolgt von gesteigert
 \label{Projektabgrenzung}
 \paragraph{}
 Im Projekt sind bereits ein Spielehauptcontroller, sowie ein Animations- und Bewegungssteuerung vorhanden.
-Der Hauptcontroller sorgt für die Verwaltung der Grundstatus\footnote{Die vier Status sind inaktiv, spielend, gewonnen und verloren.} im Spiel. Außerdem speichert er die wichtigsten Variabeln, wie unteranderem Spieldauer oder die Höhe abweichend vom Fuß des Berges. Es wird lediglich ein Verweis via Assoziation in der Charaktersteuerung eingebunden.
+Der Hauptcontroller sorgt für die Verwaltung der Grundstatus\footnote{Die vier Status sind in aktiv, spielend, gewonnen und verloren.} im Spiel. Außerdem speichert er die wichtigsten Variabeln, wie unter anderem Spieldauer oder die Höhe abweichend vom Fuß des Berges. Es wird lediglich ein Verweis via Assoziation in der Charaktersteuerung eingebunden.
 
 \chapter{Projektplanung}
 \section{Projektphasen}
@@ -56,12 +56,13 @@ Ein weiterer Grund ist das sehr einfache und intuitive Einbinden von Gameobjekt\
 Für den Architekturaufbau standen das \q{Model-View-Controller-} (MVC) und das \q{Presentation-Abstraction-Control-Muster} (PAC) zur Auswahl.
 \paragraph{}
 Des MVC Muster (Siehe Schema Abbildung \ref{Abb:MVC}) besteht grundsätzlich aus drei Strukturen, die unterschiedliche Ebenen im Programmaufbau darstellen.
-Diese unterteilen sich in \q{Modell-}, \q{View-} und \q{Controller-Ebene}. Die Unterteilung dient hierbei dem Zweck, dass jede Ebene flexibel und unabhängig der Anderen verändert, ersetzt oder erweitert werden kann. 
+Diese unterteilen sich in \q{Modell-}, \q{View-} und \q{Controller-Ebene}. Die Unterteilung dient hierbei dem Zweck, dass jede Ebene flexibel und unabhängig von den Anderen verändert, ersetzt oder erweitert werden kann. 
 Das Modell beinhaltet die Daten, die für die Anzeige nötig sind. Über die View-Ebene werden die Daten aus dem Modell dem Benutzer angezeigt und des Weiteren mögliche Benutzereingaben entgegengenommen. Wenn sich Daten im Modell ändern wird im Regelfall die View-Ebene mithilfe eines Beobachters\footnote{Der Beobachter meldet sich bei der View-Ebene, sobald sich Daten im Modell ändern.} benachrichtigt, sodass sich die View aktualisieren kann. Die entgegengenommen Benutzereingaben werden von dem Controller übernommen und verarbeitet. In dem objektorientierten Ansatz führt der Controller Methoden im Modell aus, damit die Aktionen des Benutzers wirksam werden. Außerdem kann der Controller die View direkt manipulieren, um z.B. die angezeigten Eingabemöglichkeiten zu verändern. 
 \paragraph{}
- 
-
-
+Um ein System in verschiedenen Einzelteilen zu erstellen, benötigt man ein Muster, dass jede Aufgabe in einem anderen Teil des System abbildet. Dadurch wird hohe Flexibilität ermöglicht, die sich auch im Wartungsaufwand widerspiegelt.
+Im PAC Muster (Siehe Schema Abbildung \ref{Abb:PAC}) teilt man das System in zwei Richtungen auf, zunächst in drei Einheiten, die grafische Oberfläche, einer Kommunikationsschnittstelle und einem Datenmodell. Diese Einheiten ähneln dem MVC-Muster.\\
+Darüber hinaus teilt sich das Architekturmuster hierarchisch auf sogenannte \q{Agenten} auf.
+Diese Agenten werden auf drei Schichten verteilt, auf \textit{Top-Level-}, \textit{Intermediate-Level-} und \textit{Bottom-Level}-Agenten. Den \textit{Top-Level}-Agenten gibt es nur einmal im System, er übernimmt die globalen Aufgaben. Für die \textit{Bottom-Level}-Agenten ist eine möglichst in sich abgeschlossene Aufgabe vorgesehen, die über die \textit{Intermediate-Level}-Agenten an das \textit{Top-Level} kommuniziert werden.
 
 \section{Entwurf der Benutzeroberfläche}
 
