@@ -23,7 +23,7 @@ Mit dem Projekt möchte ich eine gewisse Hartnäckigkeit, gefolgt von gesteigert
 \label{Projektabgrenzung}
 \paragraph{}
 Im Projekt sind bereits ein Spielehauptcontroller, sowie ein Animations- und Bewegungssteuerung vorhanden.
-Der Hauptcontroller sorgt für die Verwaltung der Grundstatus\footnote{Die vier Status sind inaktiv, spielend, gewonnen und verloren.} im Spiel. Außerdem speichert er die wichtigsten Variabeln, wie unteranderem Spieldauer oder die Höhe abweichend vom Fuß des Berges. Es wird lediglich ein Verweis via Assoziation in der Charaktersteuerung eingebunden.
+Der Hauptcontroller sorgt für die Verwaltung der Grundstatus\footnote{Die vier Status sind in aktiv, spielend, gewonnen und verloren.} im Spiel. Außerdem speichert er die wichtigsten Variabeln, wie unter anderem Spieldauer oder die Höhe abweichend vom Fuß des Berges. Es wird lediglich ein Verweis via Assoziation in der Charaktersteuerung eingebunden.
 
 \chapter{Projektplanung}
 \section{Projektphasen}
@@ -34,22 +34,62 @@ Für die Umsetzung des Teils des Projekts stehen insgesamt 70 Stunden zur Verfü
 Eine verfeinerte Version, in der die einzelnen Hauptphasen noch untergliedert sind, befindet sich im Anhang \textit{Anhangsverweis einfügen} auf der Seite \textit{Seitenzahl einfügen}.
 
 \section{Ressourcenplanung}
+Es werden alle Ressourcen, wie Hard- und Software in einer Übersicht im Anhang in Abbildung \ref{Abb:Ressourcen} aufgeführt. Um möglichen Aufwand für Software so gering wie möglich zu halten, wurde darauf geachtet kostenfreie, sowie Open Source Software zu benutzen.
 
 \chapter{Analysephase}
 \section{Ist-Analyse}
+\paragraph{}
 In dem Spiel gibt es viele kleine Details, welche über das Einbinden von Scripten und das Platzieren von 3D-Modellen realisiert werden. Dazu gehört zunächst die Spielkarte auf der sich der Charakter bewegt. Diese wurde von anderen Teammitgliedern erstellt, mit 3D-Modellen wie z.B. Bäumen, Sträuchern oder Gesteinsbrocken bestückt und in das Projekt implementiert. Zusätzlich wurden 3D-Modelle von Wolken und Vögeln erstellt, die sich im Kreis um den Hauptberg bewegen\footnote{Die Bewegung wurde mit einem Script realisiert.}.
 Der Spielecharakter namens \q{Sisyfox} gehört zu den schon erstellten 3D-Modellen und wurde ebenfalls schon mit einer vollständiger Animation versehen.
 Wie in Sektion \ref{Projektabgrenzung} (Projektabgrenzung) schon angedeutet ist der Hauptcontroller, als einer von vielen Scripten, schon vorhanden. Weitere wichtige Scripte sind die Kamerasteuerung, sämtliche Animationsscripte, eine Höhenmeteranzeige und ein Arduinokommunikationsscript, welcher eine Verbindung zu einer Hardwarekonstruktion namens \q{Arduino\fcitetitle{Arduino}} aufbaut. Letzter sorgt dafür, dass sich relativ zur Höhe auf der sich der Charakter befindet, ein angeschlossener Ventilator stärker dreht und eine Nebelmaschine kurz vor Erreichen des Gipfels anspringt.
 Um das Spiel zu komplettieren fehlt nun die Charaktersteuerung. 
-
 \section{Anwendungsfälle}
 
+
 \chapter{Entwurfsphase}
+\section{Zielplattform}
+\paragraph{}
+Zur Auswahl standen die IDEs\footnote{eng: integrated development environment, de: Integrierte Entwicklungsumgebung} \q{Unity 3D Engine} und \q{Unreal Engine 4}. Gewählt wurde die Unity Engine, da es in der Unreal Engine mangels grundlegender Vorkenntnisse zu einer deutlich längeren Entwicklungszeit kommen würde. Es müsste zunächst ein großer Teil der Zeit für Einarbeitung aufgewandt werden. 
+Ein weiterer Grund ist das sehr einfache und intuitive Einbinden von Gameobjekt\footnote{Gameobjekte sind die Grundbausteine von jedem Unity Spiel.}-Scripten.
+
+\section{Architekturdesign}
+\paragraph{}
+Für den Architekturaufbau standen das \q{Model-View-Controller-} (MVC) und das \q{Presentation-Abstraction-Control-Muster} (PAC) zur Auswahl.
+\paragraph{}
+Des MVC Muster (Siehe Schema Abbildung \ref{Abb:MVC}) besteht grundsätzlich aus drei Strukturen, die unterschiedliche Ebenen im Programmaufbau darstellen.
+Diese unterteilen sich in \q{Modell-}, \q{View-} und \q{Controller-Ebene}. Die Unterteilung dient hierbei dem Zweck, dass jede Ebene flexibel und unabhängig von den Anderen verändert, ersetzt oder erweitert werden kann. 
+Das Modell beinhaltet die Daten, die für die Anzeige nötig sind. Über die View-Ebene werden die Daten aus dem Modell dem Benutzer angezeigt und des Weiteren mögliche Benutzereingaben entgegengenommen. Wenn sich Daten im Modell ändern wird im Regelfall die View-Ebene mithilfe eines Beobachters\footnote{Der Beobachter meldet sich bei der View-Ebene, sobald sich Daten im Modell ändern.} benachrichtigt, sodass sich die View aktualisieren kann. Die entgegengenommen Benutzereingaben werden von dem Controller übernommen und verarbeitet. In dem objektorientierten Ansatz führt der Controller Methoden im Modell aus, damit die Aktionen des Benutzers wirksam werden. Außerdem kann der Controller die View direkt manipulieren, um z.B. die angezeigten Eingabemöglichkeiten zu verändern. 
+\paragraph{}
+Um ein System in verschiedenen Einzelteilen zu erstellen, benötigt man ein Muster, dass jede Aufgabe in einem anderen Teil des System abbildet. Dadurch wird hohe Flexibilität ermöglicht, die sich auch im Wartungsaufwand widerspiegelt.
+Im PAC Muster (Siehe Schema Abbildung \ref{Abb:PAC}) teilt man das System in zwei Richtungen auf, zunächst in drei Einheiten, die grafische Oberfläche, einer Kommunikationsschnittstelle und einem Datenmodell. Diese Einheiten ähneln dem MVC-Muster.\\
+Darüber hinaus teilt sich das Architekturmuster hierarchisch auf sogenannte \q{Agenten} auf.
+Diese Agenten werden auf drei Schichten verteilt, auf \textit{Top-Level-}, \textit{Intermediate-Level-} und \textit{Bottom-Level}-Agenten. Den \textit{Top-Level}-Agenten gibt es nur einmal im System, er übernimmt die globalen Aufgaben. Für die \textit{Bottom-Level}-Agenten ist eine möglichst in sich abgeschlossene Aufgabe vorgesehen, die über die \textit{Intermediate-Level}-Agenten an das \textit{Top-Level} kommuniziert werden.
+
+\section{Entwurf der Benutzeroberfläche}
+\paragraph{}
+An der Benutzeroberfläche wird in dem Projekt nichts verändert. Es werden jedoch einige Daten von der Charakter Steuerung an den Hauptcontroller übermittelt, welche auf dem Bildschirm angezeigt werden. Im Anhang befindet sich eine Skizze (Siehe Anhang Abbildung \ref{Abb:UISkizze}), sowie ein Anzeigebild aus dem laufendem Spiel (Siehe Anhang Abbildung \ref{Abb:UIIngame}), in dem die wichtigsten Anzeigen eingetragen sind. Auf der Skizze befindet sich Punkt \q{A} oben links auf dem Bildschirm lokalisiert. An der Position wird eine weiße Bergsilhouette gezeigt, die sich relativ zur Charakterhöhe am Berg füllt. Die Charakterhöhe wird von der Charaktersteuerung ermittelt und an den Hauptcontroller für die Anzeige der Höhe und der Bergfüllanzeige übergeben. Gleich rechts daneben - Punkt \q{B} - zeigt die vergangene Zeit für den bisherigen Versuch an. In der Mitte des Bildschirms ist eine Höhenanzeige in Metern eingebaut (siehe Punkt \q{C}). Diese erscheint alle 150 Höhenmeter und gibt den derzeitigen Zwischenstand an. Anschließend verschwindet sie wieder. Als letzten Punkt auf der Skizze ist die Charakterposition eingezeichnet. 
+\\
+Auf der Abbildung \ref{Abb:UIIngame} sind alle auftretenden Benutzerinterface Anzeigen im Spiel dargestellt.
+
+\section{Geschäftslogik}
+\paragraph{}
+Zunächst werden die Anforderungen an die Charaktersteuerung festgelegt, damit daraus ein Klassendiagramm entstehen kann. Das Klassendiagramm kann im Anhang in Abbildung ref      gefunden werden. Die Steuerung muss im Grundsatz die Mausinformationen, sowie dessen Bewegungsrichtung ermitteln und in eine Bewegung der Kugel des Charakters übersetzen. Zusätzlich sollen Mechanismen überprüft werden, die dazu führen, dass der Spieler gewinnt oder verliert. Dieser Status der Spiels wird vom Hauptcontroller verwaltet (Siehe Statemachine Anhang Abbildung \ref{Abb:SMStatus}). Der Status geht vom \textit{inaktiv}\footnote{Im inaktiv Status verweilt das Spiel solange, wie es keine Benutzerinteraktion gibt.} Status über in den \textit{laufend} Status, welcher je nach dem in \textit{gewinnen} oder \textit{verlieren} endet. Gewinnen wird der Spieler, wenn er am Gipfel des Bergen angelangt ist und dort in eine Triggerbox\footnote{Ein Trigger ist in dem Fall eine unsichtbare Box, die an ihren Außenseiten eine Kollisionserkennung hat, die sich wiederum bei einem kollidierenden Objekt meldet.} hineinläuft und damit den \textit{gewonnen} Status erreicht. Der Verlier-Mechanismus funktioniert ähnlich. Hierfür wurde festgelegt, dass bei Berührung eines Baumes oder Felsbrockens das Spiel verloren sein soll. Dafür werden diese ebenfalls mit einem Trigger versehen, der diesmal den \textit{verloren} Status auslöst. \\
+Zusätzlich soll der Kugel eine möglichst realistische Physik gegeben werden. Das heißt, dass der Charakter nicht in der Lage sein soll, die Kugel seitlich an einem Abhang entlang zu rollen, ohne dass sie ihm zur Seite weg rollt und er die Runde verliert. Er kann versuchen den Charakter unter die Kugel zu manövrieren, sodass die Steigung vor ihm liegt und nicht seitlich. Dann kann der Charakter die Kugel festhalten. Bei einem seitlichen Steigungswinkel von über 65\cc verliert der Spieler sofort das Spiel. Ist der Winkel jedoch kleiner als 65\cc, aber größer als 40\cc, dann hat der Spieler 2 Sekunden, um seine Spielfigur zu richten. Wenn der Spieler sich auf einem Hang befindet, der einen Winkel größer 20\cc hat, dann ist die Zeit, die er zum Spielfigur Richten bekommt, zwischen zwei bis vier Sekunden. Das ist abhängig davon, wie weit die Steigung zwischen 20\cc und 40\cc liegt. Es liegt im Anhang die Abbildung \ref{Abb:SeitlWinkel} vor, die diese Funktionsweise verbildlicht. Wie angesprochen kann die Spielfigur die Kugel an beliebig steilen Steigungen festhalten, solange sie sich unter\footnote{\q{Unter} bedeutet, dass der Spieler gerade auf die Steigung zuläuft.} der Kugel befindet. Befindet sich der Charakter auf der anderen Seite, dann ist die Kugel ebenfalls bei einem Winkel von 65\cc verloren.\\
+Als weitere Funktion der Steuerung soll der Charakter, wenn er durch einen Busch läuft, ausgebremst werden. Hierzu muss für jeden Busch ein weiterer Trigger hinzugefügt werden.
+
+\section{Maßnahmen zu Qualitätssicherung}
 
 \chapter{Implementierungsphase}
+\section{Implementierung der Benutzeroberfläche}
+\section{Implementierung der Geschäftslogik}
 
 \chapter{Abnahme- und Einführungsphase}
 
-\chapter{Dokumentation}
+\section{Abnahme}
+\section{Einführung}
+\section{Dokumentation}
 
 \chapter{Fazit}
+\section{Soll-/Ist-Vergleich}
+\section{Lessons Learned}
+\section{Ausblick}
