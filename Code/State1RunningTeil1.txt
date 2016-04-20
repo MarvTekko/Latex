@@ -1,0 +1,8 @@
+void State1_Running () {
+	//...
+	//Richtung berechnen, in die Geschoben wird
+	//-sign- bezeichnet 1 oder -1 je nachdem die Rechnung über oder gleich 0, oder unter 0 ist
+	float sign = Mathf.Sign ( Vector3.Dot ( new Vector3 ( velocity.x, 0, velocity.z ), Vector3.right ) );
+	//-angle- beinhaltet den Winkel der Beschleunigungsrichtung abweichend von dem Welt "vorne" 
+	float angle = Vector3.Angle ( Vector3.forward, new Vector3 ( velocity.x, 0, velocity.z ) ) * sign;
+	//...

@@ -1,0 +1,16 @@
+	//...
+	//Solange die maximale Geschwindigkeit nicht erreicht ist ->
+	if ( rigSphere.velocity.magnitude < stSphere.MaxSpeed * speedMultiplier ) {
+		//...
+		pushDirectionWithoutAngle = new Vector3 ( mouseX, 0, mouseY );
+	} else {
+		pushDirectionWithoutAngle = new Vector3 ( mouseX, 0, 0 );
+	}
+	//Finale Schubrichtung berechnen - Den Schubvektor um den -angle- drehen
+	pushDirection = Quaternion.AngleAxis ( angle, Vector3.up ) * pushDirectionWithoutAngle;
+	//Finalen Schub auf die Kugel anwenden
+	applySphereMovement ( pushDirection );
+
+	//Überprüfe Niederlagebedingungen bei Steigungswinkel
+	SphereGradientCheck ();
+}

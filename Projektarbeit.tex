@@ -4,13 +4,52 @@
 
 % Packages
 % ---
-\usepackage[utf8]{inputenc} % Unicode support (Umlauts etc.)
+\usepackage[utf8]{inputenc} % Unicode support (Umlaute etc.)
+\usepackage{caption}
 \usepackage{float}
 \usepackage[ngerman]{babel} % Change hyphenation rules
+\usepackage{wrapfig}
 \usepackage[autostyle=true, german=quotes]{csquotes}
 \newcommand{\q}[1]{\enquote{#1}}
 \usepackage{graphicx} % Add pictures to your document
+
 \usepackage{listings} % Source code formatting and highlighting
+\usepackage{color}
+
+%packet listings setzen
+\definecolor{bluekeywords}{rgb}{0,0,1}
+\definecolor{greencomments}{rgb}{0,0.5,0}
+\definecolor{redstrings}{rgb}{0.64,0.08,0.08}
+\definecolor{xmlcomments}{rgb}{0.5,0.5,0.5}
+\definecolor{types}{rgb}{0.17,0.57,0.68}
+
+\lstset{language=[Sharp]C,
+captionpos=t,
+numbers=left, %Nummerierung
+numberstyle=\tiny, % kleine Zeilennummern
+numbersep=10pt,
+frame=lines, % Oberhalb und unterhalb des Listings ist eine Linie
+showspaces=false,
+showtabs=false,
+breaklines=true,
+tabsize=3,
+showstringspaces=false,
+breakatwhitespace=true,
+escapeinside={(*@}{@*)},
+commentstyle=\color{greencomments},
+morekeywords={partial, var, value, get, set},
+keywordstyle=\color{bluekeywords},
+stringstyle=\color{redstrings},
+basicstyle=\linespread{0.6}\ttfamily\footnotesize,
+numbersep=15pt,
+xleftmargin=.04\textwidth, xrightmargin=.04\textwidth,
+literate=
+  {ä}{{\"a}}1 {ö}{{\"o}}1 {ü}{{\"u}}1
+  {Ä}{{\"A}}1 {Ö}{{\"O}}1 {Ü}{{\"U}}1
+  {ß}{{\ss}}1 {€}{{\EUR}}1 {α}{{\alp{}}}1
+}
+
+\renewcommand{\lstlistingname}{Codeausschnitt}
 
 %Layout
 \usepackage[left=2.5cm, right=2.5cm, top=2cm, headsep=0cm]{geometry}
@@ -45,6 +84,10 @@ Programmierung einer intuitiven Charaktersteuerung\\
 \thepage
 \end{large}}
 
+%Abstand von Fußnoten zum Text festlegen
+\setlength{\skip\footins}{13pt plus 2pt minus 2pt}
+
+
 %Abstand über und unter Kapitel
 \setlength{\headsep}{16pt}
 \RedeclareSectionCommand[beforeskip=0pt, afterskip=8pt]{chapter}
@@ -68,6 +111,7 @@ Programmierung einer intuitiven Charaktersteuerung\\
 \newcommand{\tref}[1]{[\ref{#1}]}
 
 \newcommand{\cc}{$ ^\circ $}
+\newcommand{\alp}{$\alpha$}
 %\newcommand{\fullref}[1]{\autoref{#1} \nameref{#1}}
 \newcommand{\fullref}[1]{\autoref{#1} auf Seite \pageref{#1}}
 
@@ -91,7 +135,6 @@ linkcolor=ckcGreenDark, citecolor=ckcGreenDark, urlcolor=ckcGreenDark
 \addtocontents{toc}{~\hfill\textbf{Seite}\par}
 \newpage{}
 \listoffigures
-\listoftables
 \newpage{}
 \pagenumbering{arabic} %schaltet die Seitenzahl ein
 

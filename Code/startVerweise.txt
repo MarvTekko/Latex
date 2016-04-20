@@ -1,0 +1,3 @@
+//Transform und Rigidbody Verweise zusammensuchen
+traSphere = this.gameObject.GetComponent<Transform> ();
+rigSphere = this.gameObject.GetComponent<Rigidbody> ();

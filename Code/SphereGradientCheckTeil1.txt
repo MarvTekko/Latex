@@ -1,0 +1,16 @@
+void SphereGradientCheck () {
+
+	RaycastHit hit;
+	//-Vor- der Kugel einen Raycast auf den Boden casten
+	if ( Physics.Raycast ( traSphere.transform.position + rigSphere.velocity.normalized * 0.075f, Vector3.down, out hit ) ) {
+		Vector3 frontHit = hit.point;
+
+		//-Hinter- der Kugel eine Raycast auf den Boden casten
+		if ( Physics.Raycast ( traSphere.transform.position - rigSphere.velocity.normalized * 0.075f, Vector3.down, out hit ) ) {
+			Vector3 backHit = hit.point;
+
+			//Steigung oder Gefälle zwischen beiden Raycast Hits berechnen
+			//sin(α) = h/b
+			winkelSteigungFB = Mathf.Asin ( (frontHit.y - backHit.y) / (frontHit - backHit).magnitude ) / 0.017453292519943f;
+		}
+	}

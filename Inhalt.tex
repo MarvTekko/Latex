@@ -23,14 +23,13 @@ Mit dem Projekt soll eine gewisse Hartnäckigkeit, gefolgt von gesteigerter Moti
 \label{Projektabgrenzung}
 \paragraph{}
 Im Projekt sind bereits ein Spielehauptcontroller sowie eine Animations- und Bewegungssteuerung vorhanden.
-Der Hauptcontroller sorgt für die Verwaltung der Grundstatus\footnote{Die vier Status sind in aktiv, spielend, gewonnen und verloren eingeteilt.} im Spiel. Außerdem speichert er die wichtigsten Variabeln, wie unter anderem Spieldauer oder die Höhe abweichend vom Fuß des Berges. Es wird lediglich ein Verweis via Assoziation in der Charaktersteuerung eingebunden, damit z.B. die Höhendaten kommuniziert werden können.
+Der Hauptcontroller sorgt für die Verwaltung der Grundstatus\footnote{Die vier Status sind in aktiv, spielend, gewonnen und verloren eingeteilt.} im Spiel. Außerdem speichert er die wichtigsten Variablen, wie unter anderem Spieldauer oder die Höhe abweichend vom Fuß des Berges. Es wird lediglich ein Verweis via Assoziation in der Charaktersteuerung eingebunden, damit z.B. die Höhendaten kommuniziert werden können.
 
 \chapter{Projektplanung}
 \section{Projektphasen}
 \paragraph{}
 Für die Umsetzung des Teils des Projekts stehen insgesamt 70 Stunden zur Verfügung. Die Entwicklung wurde vor Beginn des Projekts auf die verschiedene Projektphasen aufgeteilt. In der folgenden Tabelle \tref{tab:Zeit} lässt sich die grobe Zeitplanung ablesen.\\
 \input{Tabellen/Zeitplanung}
-
 
 \section{Ressourcenplanung}
 Es werden alle verwendeten Ressourcen wie Hard- und Software in einer Übersicht im Anhang in \fullref{Abb:Ressourcen} aufgeführt. Um möglichen Aufwand für Software so gering wie möglich zu halten, wurde darauf geachtet, kostenfreie sowie Open Source Software zu benutzen.
@@ -44,16 +43,18 @@ Wie in \autoref{Projektabgrenzung} \nameref{Projektabgrenzung} bereits erwähnt,
 
 \section{Anforderungsanalyse}
 \paragraph{}
-Um die Positionsverschiebung des Spielecharakters zu implementieren, muss eine Steuerung geschrieben werden. Diese soll von dem Nutzer kontrolliert werden. Das bedeutet, dass der Nutzer Eingaben tätigt und die Steuerung dafür sorgt, dass es ein visuelles Feedback gibt. Hierbei muss innerhalb der Steuerung auf vorher festgelegte Verlier- und Gewinnbedingungen reagiert und zusätzlich eine möglichst realistische und damit intuitive Bewegung ermöglicht werden. In der Entwurfsphase wird das genauere Vorgehen einschließlich einer Programmarchitekturauswahl hinsichtlich der gestellten Anforderungen erläutert.
+Um die Positionsverschiebung des Spielecharakters zu implementieren, muss eine Steuerung geschrieben werden. Diese soll von dem Nutzer kontrolliert werden. Das bedeutet, dass der Nutzer Eingaben tätigt und die Steuerung dafür sorgt, dass es ein visuelles Feedback gibt. Hierbei muss innerhalb der Steuerung auf vorher festgelegte Niederlage- und Gewinnbedingungen reagiert und zusätzlich eine möglichst realistische und damit intuitive Bewegung ermöglicht werden. In der Entwurfsphase wird das genauere Vorgehen einschließlich einer Programmarchitekturauswahl hinsichtlich der gestellten Anforderungen erläutert.
 
 \section{Qualitätsanforderungen}
 \paragraph{}
-
+Das Spiel und der dazu geschriebene Code muss folgenden Qualitätsanforderungen entsprechen. \\
+Im Code muss ein sauberer Schreibstil gepflegt werden, um bei Wartungen oder Veränderungen den Aufwand gering zu halten. Dafür werden für jede Methode Kommentare verfasst, die die grundlegende Funktion beschreiben. Des Weiteren werden die einzelnen Funktionsweisen in Methoden von einander getrennt. Variablenamen müssen selbstsprechend benannt werden und bei Abweichung für Hilfsvariablen, darüber ein Kommentar mit einer kurzen Beschreibung geschrieben werden.
+Nach dem Fertigstellen einzelner Methoden wird ein manueller Test der implementierten Funktion durchgeführt. Das Spiel wird gestartet und die Funktion ausprobiert.
 
 \chapter{Entwurfsphase}
 \section{Zielplattform}
 \paragraph{}
-Zur Auswahl standen die IDEs\footnote{eng: integrated development environment, de: Integrierte Entwicklungsumgebung} \q{Unity 3D Engine} und \q{Unreal Engine 4}. Gewählt wurde die Unity Engine, da in dieser gegenüber der Unreal Engine deutliche Vorkenntnisse vorhanden sind, die dann im Projekt für einen flüssigen Workflow sorgen. Ein weiterer Grund ist das sehr einfache und intuitive Einbinden von Gameobjekten\footnote{\q{Gameobjekte} sind die Grundbausteine von jedem Unity Spiel.} und deren angebundenen Scripten.
+Zur Auswahl standen die IDEs\footnote{eng: integrated development environment, de: Integrierte Entwicklungsumgebung} \q{Unity 3D Engine} und \q{Unreal Engine 4}. Gewählt wurde die Unity Engine, da in dieser gegenüber der Unreal Engine deutliche Vorkenntnisse vorhanden sind, die dann im Projekt für einen flüssigen Workflow sorgen. Ein weiterer Grund ist das sehr einfache und intuitive Einbinden von Gameobjekten\footnote{\q{Gameobjekte} sind die Grundbausteine von jedem Unity Spiel und können verschiedene Komponenten aufnehmen, um damit den unterschiedlichen Aufgaben eines Spiels gerecht zu werden.} und deren angebundenen Scripten.
 
 \section{Architekturdesign}
 \paragraph{}
@@ -78,29 +79,82 @@ An der Benutzeroberfläche wird in dem Projekt nichts verändert. Es werden jedo
 In der \fullref{Abb:UIIngame} sind alle auftretenden Benutzerinterface Anzeigen im Spiel dargestellt.
 
 \section{Geschäftslogik}
+\label{Geschaeftslogik}
 \paragraph{}
-Zunächst werden die Anforderungen an die Charaktersteuerung festgelegt, damit daraus ein Klassendiagramm entstehen kann. Das Klassendiagramm kann im Anhang in \fullref{Abb:KlassendiaMain} eingesehen werden. Die Steuerung muss als Hauptaufgabe die Mausinformationen sowie deren Bewegungsrichtung ermitteln und in eine Bewegung der virtuellen Kugel übersetzen. Um das zu realisieren, muss die aktuelle Mausposition gespeichert werden und im anschließenden Frame\footnote{Ein Frame ist ein angezeigtes Bild während das Spiel läuft. Das Spiel läuft mit ca. 60 Frames pro Sekunde.} der Unterschied zum vorherigen Frame berechnet werden. Aus dieser Bewegung kann ein Richtungsvektor ermittelt werden. Dieser Vektor beinhaltet die genaue Richtung sowie die Strecke, die sich die Maus bewegt hat. Durch die Strecke kann die Steuerung eine Beschleunigung der Kugel berechnen. Ist das geschehen, so kann die Beschleunigung auf die Kugel angewandt werden, damit sie sich in eine Richtung bewegt.
+Zunächst werden die Anforderungen an die Charaktersteuerung festgelegt, damit daraus ein Klassendiagramm entstehen kann. Das Klassendiagramm kann im Anhang in \fullref{Abb:KlassendiaMain} eingesehen werden. Die Steuerung muss als Hauptaufgabe die Mausinformationen sowie deren Bewegungsrichtung ermitteln und in eine Bewegung der virtuellen Kugel übersetzen. Um das zu realisieren, muss die aktuelle Mausbewegungsrichtung gespeichert werden. Daraus wird ein Richtungsvektor ermittelt. Der Vektor muss anschließend mit der einer spezifischen Geschwindigkeit multipliziert werden, damit die Beschleunigung entsteht. Nun ist ein Problem entstanden. Die Richtung, in die die Maus bewegt wurde, kann nicht direkt auf die Bewegungsrichtung der Kugel addiert werden, da die Kugelbewegung auf dem 3D Weltkoordinatensystem\footnote{Das Koordinatensystem ist statisch. Die Kugelbewegung ist, obwohl sie visuell nach vorne rollt, möglicherweise abweichend davon.} liegt und die Mausbewegung auf dem Bildschirmkoordinatensystem.
+
+\begin{wrapfigure}{r}{0.5\textwidth}
+\begin{center}
+\includegraphics[scale=0.28]{Bilder/Diagramme/KoordinatensystemProblem.png}
+\end{center}
+\begin{footnotesize}
+\caption{Koordinatensystem Problem}
+\label{Abb:KoordinatensystemProblem}
+\end{footnotesize}
+\end{wrapfigure}
+
+Ein Beispiel (Siehe auch \autoref{Abb:KoordinatensystemProblem}: Das Eingabemedium wird vom Benutzer nach links vorne geschoben, daraus entsteht ebenfalls eine Mausbewegung nach links vorne. Das ist der Vektor \q{a} in \autoref{Abb:KoordinatensystemProblem} bei Punkt [1]. Vektor \q{b} bezeichnet die aktuelle Kugelbewegung innerhalb des Weltkoordinatensystems. Für den Benutzer rollt die Kugel nach vorne, da die Kamera immer hinter dem Betrachter in Bewegungsrichtung schauend steht. Im Weltsystem ist die Rollrichtung jedoch ein Vektor, der von der Weltrichtung \q{vorne} abweicht. Das heißt, wenn jetzt wie in Punkt [2] die beiden Vektoren ohne Vorbehandlung addiert werden, die Kugel nicht wie gewünscht nach links, sondern nach rechts rollt. Um die unbeabsichtigte Richtung zu korrigieren, muss der Mausbewegungsvektor \q{a} um den Winkel \alp{} aus Punkt [1], der die Abweichung des Welt \q{vorne} Vektors von der Kugelbewegungsrichtung darstellt, gedreht werden. Anschließend kann der \q{neue a} Vektor wie in Punkt [3] auf den Kugelvektor \q{b} addiert werden. Daraus resultiert jetzt die erwartete Bewegungsrichtung.
 \paragraph{}
-Zusätzlich sollen vorher festgelegte Mechanismen überprüfen, in welchen Situationen der Spieler das Spiel gewinnt oder verliert. Dieser Zustand oder auch Status des Spiels wird vom Hauptcontroller verwaltet (Siehe Statemachine Anhang \fullref{Abb:SMStatus}). Der Status geht vom \textit{inaktiv}\footnote{Im inaktiv Status verweilt das Spiel solange, wie es keine Benutzerinteraktion gibt.} Status über in den \textit{laufend} Status, welcher je nach Spielweise in \textit{gewinnen} oder \textit{verlieren} endet. Gewinnen wird der Spieler, wenn er am Gipfel des Berges angelangt ist und dort in eine Triggerbox\footnote{Ein Trigger ist in dem Fall eine unsichtbare Box mit Kollisionserkennung an den Außenseiten, die ein Kollisionsevent erzeugt. Das Event löst eine Funktion beim kollidierenden Objekt aus.} (Siehe auch \fullref{Abb:GewinnTrigger}) hineinläuft und somit den \textit{gewonnen} Status erreicht. Der Niederlage-Mechanismus funktioniert ähnlich. Hierfür wurde festgelegt, dass bei Berührung eines Baumes (Siehe auch \fullref{Abb:BaumTrigger}) oder Felsbrockens das Spiel verloren sein soll. Dafür werden diese ebenfalls mit einem Trigger versehen, der den \textit{verloren} Status auslöst.
+Ergänzend sollen vorher festgelegte Mechanismen überprüfen, in welchen Situationen der Spieler das Spiel gewinnt oder verliert. Dieser Zustand oder auch Status des Spiels wird vom Hauptcontroller verwaltet (Siehe Statemachine Anhang \fullref{Abb:SMStatus}). Der Status geht vom \textit{inaktiv}\footnote{Im inaktiv Status verweilt das Spiel solange, wie es keine Benutzerinteraktion gibt.} Status über in den \textit{laufend} Status, welcher je nach Spielweise in \textit{gewinnen} oder \textit{verlieren} endet. Gewinnen wird der Spieler, wenn er am Gipfel des Berges angelangt ist und dort in eine Triggerbox\footnote{Ein Trigger ist in dem Fall eine unsichtbare Box mit Kollisionserkennung an den Außenseiten, die ein Kollisionsevent erzeugt. Das Event löst eine Funktion beim kollidierenden Objekt aus.} (Siehe auch \fullref{Abb:GewinnTrigger}) hineinläuft und somit den \textit{gewonnen} Status erreicht. Der Niederlage-Mechanismus funktioniert ähnlich. Hierfür wurde festgelegt, dass bei Berührung eines Baumes (Siehe auch \fullref{Abb:BaumTrigger}) oder Felsbrockens das Spiel verloren sein soll. Dafür werden diese ebenfalls mit einem Trigger versehen, der den \textit{verloren} Status auslöst.
 \paragraph{}
-Zusätzlich soll der Kugel eine möglichst realistische Physik gegeben werden. Das heißt, dass der Charakter nicht in der Lage sein soll, die Kugel seitlich an einem Abhang entlang zu rollen, ohne dass sie ihm zur Seite weg rollt und er die Runde verliert. Der Benutzer kann als Reaktion versuchen den Charakter unter die Kugel zu manövrieren, sodass die Steigung vor ihm liegt und nicht seitlich. Dann kann der Charakter die Kugel festhalten. Bei einem seitlichen Steigungswinkel von über 65\cc verliert der Spieler sofort das Spiel. Liegt der Winkel zwischen 40\cc und 65\cc, dann hat der Spieler 2 Sekunden, um seine Spielfigur zu richten. Auf einem Hang mit einem Neigungswinkel zwischen 20\cc und 40\cc hat der Spieler abhängig vom Winkel vier bis zwei Sekunden Zeit die Spielfigur zu richten. Es liegt im Anhang die \fullref{Abb:SeitlWinkel} vor, die diese Funktionsweise verbildlicht. Wie angesprochen kann die Spielfigur die Kugel an beliebig steilen Steigungen festhalten, solange sie sich unter\footnote{\q{Unter} bedeutet, dass der Spieler gerade auf die Steigung zuläuft.} der Kugel befindet. Befindet sich der Charakter auf der anderen Seite (\q{über} der Kugel), dann ist die Kugel ebenfalls bei einem Winkel von 65\cc verloren.
+Zusätzlich soll der Kugel eine möglichst realistische Physik gegeben werden. Das heißt, dass der Charakter nicht in der Lage sein soll, die Kugel seitlich an einem Abhang entlang zu rollen, ohne dass sie ihm zur Seite weg rollt und er die Runde verliert. Diese Mechanik ist in \autoref{Abb:VerlierWinkelSeitlich} visualisert. Der Benutzer kann als Reaktion versuchen den Charakter unter die Kugel zu manövrieren, sodass die Steigung vor ihm liegt und nicht seitlich.
+
+\begin{wrapfigure}{l}{0.525\textwidth}
+\begin{center}
+\includegraphics[scale=0.17]{Bilder/Diagramme/VerlierWinkelSeitlich.png}
+\end{center}
+\begin{footnotesize}
+\caption{Bedingungen bei seitlichem Neigungswinkel}
+\label{Abb:VerlierWinkelSeitlich}
+\end{footnotesize}
+\end{wrapfigure}
+
+Dann kann der Charakter die Kugel festhalten. Bei einem seitlichen Neigungswinkel von über 65\cc, wie bei Punkt [1], verliert der Spieler sofort das Spiel. Liegt der Winkel, wie in Punkt [2], zwischen 40\cc und 65\cc, dann hat der Spieler 2 Sekunden, um seine Spielfigur zu richten. Auf einem Hang, wie in Punkt [3], mit einem Neigungswinkel zwischen 20\cc und 40\cc hat der Spieler abhängig vom Winkel vier bis zwei Sekunden Zeit die Spielfigur zu richten. Wie angesprochen kann die Spielfigur die Kugel an beliebig steilen Steigungen festhalten, solange sie sich unter\footnote{\q{Unter} bedeutet, dass der Spieler gerade auf die Steigung zuläuft.} der Kugel befindet. Befindet sich der Charakter auf der anderen Seite (\q{über} der Kugel), dann ist die Kugel ebenfalls bei einem Winkel von 65\cc verloren.
 \paragraph{}
 Als weitere Funktion der Steuerung soll der Charakter, wenn er durch einen Busch läuft, verlangsamt werden. Hierzu muss für jeden Busch ein weiterer Trigger (Siehe auch \fullref{Abb:BuschTrigger}) hinzugefügt werden.
 
 \section{Maßnahmen zu Qualitätssicherung}
 \paragraph{}
-Um die Qualität der umzusetzenden Steuerung zu gewährleisten, wird während der Implementierung nach jeder Einbindung einer neuen Funktion, ein manueller Test durchgeführt. Die neue spezifische Funktion wird anhand einer augenscheinlichen Ausführung und Debug-Informationen begutachtet. Daraus wird geschlussfolgert, ob die Implementierung erfolgreich eingesetzt wurde.
+Um die Qualität der umzusetzenden Steuerung zu gewährleisten, wird während der Implementierung nach jeder Einbindung einer neuen Funktion, ein manueller Test durchgeführt. Die neue spezifische Funktion wird anhand einer augenscheinlichen Ausführung und Debug-Informationen\footnote{Die Debug-Informationen werden \q{hard-coded}. Das bedeutet, dass die Informationen zum erfolgreichen Erreichen des Codeabschnittes direkt in den Code geschrieben werden und dort nach erfolgreichem Test gelöscht werden.} begutachtet. Daraus wird geschlussfolgert, ob die Implementierung erfolgreich eingesetzt wurde.
 
 \chapter{Implementierungsphase}
+\section{Implementierung der Klassenstruktur}
+\paragraph{}
+Am Anfang werden die beiden Klassen \q{SphereController} und \q{stSphere} erstellt. Die Steuerung des Kugel wird hier \q{SphereController} genannt, da es bereits einen \q{CharacterController} gibt. Dieser ermittelt den aktuellen Stand der Animation der Spielfigur und deren Position hinter der Kugel. Die Bezeichnung ist daher passend, weil sich die Steuerung im Endeffekt um die Bewegung der Kugel oder auch \q{Sphere} kümmert. 
+\paragraph{}
+In die Klasse \q{stSphere} werden alle spezifischen Daten der Sphere abgelegt. Im Anhang ist die vollständige Klasse in \fullref{Abb:stSphere} abgebildet. Für sie wurde die statische Variante gewählt, da es im Spiel nur eine einzige Kugel gibt und sich deren Eigenschaften nicht verändern. So muss im \q{SphereController} kein Objekt der Kugel erstellt werden. In der Steuerung kann einfach via \q{stSphere.Variablename} auf die Attribute der Kugel zugegriffen werden. Alle Variablen der \q{stSphere} Klasse sind nur mit \textit{gettern}\footnote{Ein \textit{getter} ermöglicht eine Anpassung der Rückgabefunktion der zugehörigen Variable.} versehen, damit es nicht die Möglichkeit gibt durch einen anderen Script die Werte zu verändern\footnote{Der Wert könnte mithilfe eines \textit{setters} von außerhalb verändert werden. Der wurde hier weggelassen.}. Die eingesetzten Variablen sind direkt initialisiert. Die Werte ergeben sich aus mehreren manuellen Tests und anschließender Optimierung an die subjektiv beste Spielerfahrung. In der Klasse finden sich, die in \autoref{Geschaeftslogik} \nameref{Geschaeftslogik} festgelegten Winkelbedingungen unter \q{InstantLossAngle}, \q{MiddleLossAngle} und \q{LowLossAngle} wieder. 
+\paragraph{}
+Für die \q{SphereController} Klasse werden zunächst die Verweise und Abhängigkeiten zu den anderen Scripten geschaffen. Der \q{GameController} Script übergibt sich selbst bei der Instanzierung\footnote{Instanzierung heißt bei Unity, dass ein Objekt als Kopie eines \textit{Prefabs} in der 3D-Welt erstellt wird. Ein \textit{Prefab} ist ein zuvor erstelltem Spielobjekt mit angebundenen Komponenten, in dem Fall die Spielefigur mit Kameraobjekt und Kugelobjekt. An das Kugelobjekt ist der \q{SphereController} angebunden. Die Unity Ansicht kann in \fullref{Abb:SphereInspector} gesehen werden.} des Spielerobjektes an den Sphere Script. In  der Start Methode des \q{SphereController} wird der Verweis zu dem \textit{Transform}\footnote{Das Transform ist eine Komponente eines Gameobjektes und enthält dazu die Positions-, Rotations- und Skalierungsdaten. } sowie zu dem \textit{Rigidbody}\footnote{Das Rigidbody ist eine Komponente eines Gameobjektes und sorgt für Physikbeachtung des Objektes. Dazu gehört z.B. das Reagieren auf die Schwerkraft oder Kollidieren mit anderen Gameobjekten. Zum Kollidieren wird zusätzlich eine \q{Collider}-Komponente benötigt.} der Kugel erstellt. Im folgenden ist ein Ausschnitt der Startfunktion zu sehen.
+
+\lstinputlisting[caption={Startfunktion}]{Code/startVerweise.txt}
+
 \section{Implementierung der Geschäftslogik}
 \paragraph{}
-Am Anfang 
+Im Anschluss an die Implementierung der Klassenlogik wird sich der Geschäftslogik gewidmet. Der \q{SphereController} Script hat eine Update Funktion, die von der Engine\footnote{Die Engine arbeitet im Hintergrund des Spiels und ruft unter anderem die Start und Update Funktionen in Scripten auf. Außerdem kümmert sie sich auch um die grafische Darstellung vom} vor jedem Frame\footnote{Ein Frame ist ein angezeigtes Bild während das Spiel läuft. Das Spiel läuft mit ca. 60 Frames pro Sekunde.} aufgerufen wird. Dort wird sich je nach Hauptsteuerungsstatus entschieden, welche Funktionen ausgeführt werden. Außerdem wird in jedem Update Aufruf die Mausbewegungsrichtung\footnote{Die Mausbewegung wird durch das physische Eingabemedium erzeugt.} zwischengespeichert. Die Methode \q{GetAxis} gibt einen Wert zwischen -1 und 1 für die angegebene Achse zurück, der, wenn \textit{mouseX} und \textit{mouseY} zu einem Vektor zusammengefasst werden, den Richtungsvektor symbolisiert.
 
-\section{Implementierung der Benutzeroberfläche}
+\lstinputlisting[caption={Updatefunktion}]{Code/updateFunc.txt}
+
 \paragraph{}
+Die in der Updatefunktion aufgerufene \textit{State0{\_}Idle} Methode beinhaltet das Verhalten der Kugel im inaktiven Zustand. Dort wird abgefragt, ob die \textit{mouseX} oder \textit{mouseY} Variablen einen Wert anders als 0 hat, um eine Bewegung des Eingabemediums festzustellen. Sobald die Kugel vom Benutzer bewegt wird, gibt der \q{SphereController} dem \q{GameController} Bescheid, dass das Spiel nun in den nächsten Zustand (Siehe auch \fullref{Abb:SMStatus}) übergehen kann.
+
+\lstinputlisting[caption={\q{Idle} Funktion}]{Code/State0Idle.txt}
+
+\paragraph{}
+Im Anschluss geht es an die Umsetzung der in \autoref{Geschaeftslogik} \nameref{Geschaeftslogik} genannten Problemlösung der Vektorberechnung. Es wird die \textit{State1{\_}Running} Funktion erstellt. Am Anfang steht die Berechnung des Winkels für die Drehung des Mausvektors. Dieser ist in der Variable \textit{angle} abgelegt. \textit{Vector.Angle} ermittelt den Winkel zwischen \textit{Vector.forward} und der aktuellen Bewegungsrichtung \textit{new Vector( velocity.x, 0, velocity.z )}.
+
+\lstinputlisting[caption={\q{Running} Funktion Teil 1}]{Code/State1RunningTeil1.txt}
+
+\paragraph{}
+Danach kann aus \textit{mouseX} und \textit{mouseY} der Mausvektor bestimmt werden. Solange die Geschwindigkeit der Kugel kleiner dem, in der Klasse \q{stSphere} festgelegten Wert ist, wird dem Vektor die \textit{mouseY} oder auch Schubkraftvariable hinzugefügt. Ansonsten kann im Endeffekt nur gelenkt und nicht geschoben werden, da die \textit{mouseX} nur für die Richtungsänderung zuständig ist. Die Variable \textit{angle} wird mit Hilfe der vorgegebenen \textit{Quaternion.AngleAxis} Methode auf die Mausbewegung multipliziert damit diese korrekt gedreht ist.
+
+\lstinputlisting[caption={\q{Running} Funktion Teil 2}]{Code/State1RunningTeil2.txt}
+
+\paragraph{}
+Im nächsten Abschnitt wird die Neigungswinkel-Überprüfung betrachtet und umgesetzt. Anfangs werden die Winkel die sich im Moment unterhalb der Kugel befinden bestimmt. Dafür werden Raycasts\footnote{\q{Rays} sind Strahlen, die von der Engine in bestimmte Richtungen ausgesandt werden können und das Objekt, auf das sie treffen, zurückgeben.} benutzt, die ein Gameobjekt zurückgeben. Das Objekt beinhaltet eine Transformkomponente, die ihre genaue Position kennt. Und anschließend kann man mit jeweils zwei Raycasts, einerseits vor und hinter und andererseits rechts und links der Kugel, die Winkel zwischen den Treffern bestimmen. Im folgenden Codeausschnitt ist beispielhaft die Ermittlung des Winkels zwischen dem vorderen und hinterem Raycasttreffer dargestellt.
+
+\lstinputlisting[caption={Neigungswinkel Überprüfung Teil 1}]{Code/SphereGradientCheckTeil1.txt}
 
 \chapter{Abnahme- und Einführungsphase}
-
 \section{Abnahme}
 \section{Einführung}
 \section{Dokumentation}

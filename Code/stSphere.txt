@@ -1,0 +1,41 @@
+public static class stSphere {
+    
+    //Festgelegte Variabeln
+    //----------------------------
+    //Maximalgeschwindigkeit der Kugel
+    public static float MaxSpeed
+    { get{return 3.75f;} }
+	
+    //Geschwindigkeitsmultiplikator, um den die velocity der Kugel verlangsamt, wenn sie durch einen Busch rollt
+    public static float SlowDownSpeedTo
+    { get{return 0.5f;} }
+	
+    //Wert um den der MausY Wert erweitert wird, damit die Bewegung sauberer nach vorne ist
+    public static float SmoothLeftRightValue
+    { get{return 0.5f;} }
+	
+    //Wert um den die Kugel beschleunigt wird
+    public static float Speed
+    { get{return 0.03f;} }
+	
+    //Winkel Niederlagebedingungen und Timerzeiten
+    //Höchster Winkel bei dem das Spiel sofort verloren ist
+    public static float InstantLossAngle
+    { get{return 65f;} }
+	
+    //Mittlerer Winkel bei dem das Spiel nach 2 Sekunden verloren ist
+    public static float MiddleLossAngle
+    { get{return 40f;} }
+	
+    //Kleinster Winkel 4 - 2 Sekunden Zeit
+    public static float LowLossAngle
+    { get{return 20f;} }
+	
+    //Zeit für mittleren Winkel
+    public static float MiddleLossTime
+    { get{return 2f;} }
+	
+    //Endzeit für niedrigsten Winkel
+    public static float MinLowLossTime
+    { get{return 2f;} }
+}

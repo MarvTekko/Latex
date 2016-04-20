@@ -1,0 +1,23 @@
+void Update () {
+	//Je nach Spielstatus wird hier entschieden was gemacht wird
+	switch ( GameControllerScript.GameState ) {
+		case 0:
+			//Status inaktiv ausfuehren
+			State0_Idle ();
+			break;
+		case 1:
+			//Status laufend ausfuehren
+			State1_Running ();
+			break;
+		case 2:
+			break;
+		case 3:
+			break;
+		default:
+			break;
+	}
+
+	//Mausposition X und Y jeden Frame neu speichern
+	mouseX = Input.GetAxis ( "Mouse X" );
+	mouseY = Input.GetAxis ( "Mouse Y" );
+}

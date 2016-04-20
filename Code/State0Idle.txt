@@ -1,0 +1,9 @@
+void State0_Idle () {
+	//Wenn die Maus bewegt wird, startet das Spiel
+	if ( (mouseX != 0 || mouseY != 0) ) {
+		//Dem Hauptcontroller Bescheid sagen, dass das Spiel startet
+		GameControllerScript.GameStarted ();
+
+		//...
+	}
+}
