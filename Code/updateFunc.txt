@@ -17,7 +17,7 @@ void Update () {
 			break;
 	}
 
-	//Mausposition X und Y jeden Frame neu speichern
+	//Mausrichtung X und Y jeden Frame neu speichern
 	mouseX = Input.GetAxis ( "Mouse X" );
 	mouseY = Input.GetAxis ( "Mouse Y" );
 }

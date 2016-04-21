@@ -1,0 +1,10 @@
+void OnCollisionEnter ( Collision collisionObj ) {
+	//Bei Kollision mit einem Objekt mit dem Tag "Grünzeug", "Felsen" oder "Blitz" ist das Spiel verloren
+	if ( (collisionObj.collider.CompareTag ( "Grünzeug" ) 
+	      || collisionObj.collider.CompareTag ( "Felsen" )
+		  || collisionObj.collider.CompareTag ( "Blitz" )) 
+		&& GameControllerScript.GameState == 1 ) {
+		
+		GameControllerScript.GameLoss ();
+	}
+}

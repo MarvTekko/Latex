@@ -1,0 +1,18 @@
+void OnTriggerEnter (Collider collider) {
+	//Bei Berührung eines Buschen wird die Kugel um 50% verlangsamt
+	if ( collider.CompareTag ( "Busch" ) ) {
+		//maxspeed über die multiplier Variable auf 50% setzen
+		speedMultiplier = stSphere.SlowDownSpeedTo;
+		Vector3 oppositeForce = -rigSphere.velocity;
+		oppositeForce *= 0.5f;
+		//Entgegen der Bewegungsrichtung Schub ausüben
+		rigSphere.AddForce ( oppositeForce, ForceMode.VelocityChange );
+	}
+}
+
+void OnTriggerExit ( Collider collider ) {
+	//Beim Austreten aus dem Buschcollider den -speedMultiplier- zurücksetzen
+	if ( collider.CompareTag ( "Busch" ) ) {
+		speedMultiplier = 1f;
+	}
+}
